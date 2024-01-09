@@ -1,9 +1,14 @@
+import os
 import json
 class Pokedex:
-    def __init__(self, save_file="C:/ken/Pokemon/fichier/pokedex.json"):
+    def __init__(self, save_file="fichier/pokedex.json"):
         self.pokemon_list = []
         self.total_pokemon_count = 0
-        self.save_file = "pokedex.json"
+        self.save_file = save_file
+
+        directory = os.path.dirname(self.save_file)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
 
         try:
             with open(self.save_file, "r") as file:
@@ -12,6 +17,7 @@ class Pokedex:
         except FileNotFoundError:
             with open(self.save_file, "w") as file:
                 json.dump([], file)
+
 
     def enregistrer_pokemon(self, nouveau_pokemon):
         for pokemon_existant in self.pokemon_list:
@@ -28,6 +34,6 @@ class Pokedex:
     def sauvegarde_pokemon(self):
         with open(self.save_file, "w") as file:
             json.dump(self.pokemon_list, file)
-
+            
 
 
