@@ -1,16 +1,16 @@
 import pygame
 import sys
-from jeu import Jeu
+
 pygame.init()
-pygame.font.init()  # Initialisation du module de police
+pygame.font.init()  
 
 class AudioManager:
     def __init__(self):
         pygame.mixer.init()
         self.sound_initialized = False
         self.load_music()
-        self.music_playing = False  # Initialisation de la variable music_playing
-        self.music_position = 0  # Nouvelle variable pour stocker la position de lecture
+        self.music_playing = False
+        self.music_position = 0
 
     def load_music(self):
         pygame.mixer.music.load("project_pokemon/1hour_pokemon.mp3")
@@ -19,12 +19,12 @@ class AudioManager:
 
     def play(self):
         if not self.music_playing:
-            pygame.mixer.music.play(-1, self.music_position)  # Reprendre à la position sauvegardée
+            pygame.mixer.music.play(-1, self.music_position)
             self.music_playing = True
 
     def stop(self):
         if self.music_playing:
-            self.music_position = pygame.mixer.music.get_pos()  # Sauvegarder la position actuelle
+            self.music_position = pygame.mixer.music.get_pos()
             pygame.mixer.music.stop()
             self.music_playing = False
 
@@ -39,12 +39,11 @@ class AudioManager:
             self.load_music()
 
 audio_manager = AudioManager()
-audio_manager.play()  # Lancer le son au démarrage
+audio_manager.play()
 
 screen = pygame.display.set_mode((800, 600), pygame.FULLSCREEN)
-# Charger l'image de fond avec la nouvelle résolution
 background = pygame.image.load("project_pokemon/pokémon-ecran-d'accueil.jpg")
-background = pygame.transform.scale(background, (800, 600))  # Adapter à la taille de la fenêtre
+background = pygame.transform.scale(background, (800, 600))
 
 font = pygame.font.Font(None, 36)
 text_new_game = font.render("Nouvelle partie", True, (255, 255, 255))
@@ -61,16 +60,12 @@ text_volume = options_menu_font.render("Volume", True, (255, 255, 255))
 text_back = options_menu_font.render("Retour", True, (255, 255, 255))
 back_button_rect = text_back.get_rect(topleft=(200, 350))
 
-# Ajout d'une barre de volume
 volume_bar_width = 200
 volume_bar_height = 20
 volume_bar_x = 300
 volume_bar_y = 200
 volume_bar_color = (0, 255, 0)
 volume_bar_value = audio_manager.get_volume()
-
-running = True
-# ... (votre code précédent)
 
 running = True
 while running:
@@ -88,27 +83,21 @@ while running:
             if 350 <= event.pos[0] <= 500 and 350 <= event.pos[1] <= 380:
                 running = False
             elif 350 <= event.pos[0] <= 500 and 250 <= event.pos[1] <= 280:
-                # L'utilisateur a cliqué sur "Nouvelle partie"
-                jeu = Jeu()
-                jeu.start_game()
+                print("Continuer le jeu")
             elif 350 <= event.pos[0] <= 500 and 300 <= event.pos[1] <= 330:
-                # L'utilisateur a cliqué sur "Options"
                 show_options_menu = True
                 if not options_menu_entered:
-                    audio_manager.reset()  # Réinitialiser le son seulement la première fois
+                    audio_manager.reset()
                     options_menu_entered = True
             elif show_options_menu and back_button_rect.collidepoint(event.pos):
-                # L'utilisateur a cliqué sur le bouton "Retour"
                 show_options_menu = False
-                if audio_manager.music_playing:  # Vérifiez si la musique est en cours de lecture
-                    audio_manager.play()  # Reprendre la musique seulement si elle était en cours de lecture
-            elif show_options_menu and volume_bar_x <= event.pos[0] <= volume_bar_x + volume_bar_width \
-                    and volume_bar_y <= event.pos[1] <= volume_bar_y + volume_bar_height:
-                # L'utilisateur a cliqué sur la barre de volume
-                volume_bar_value = (event.pos[0] - volume_bar_x) / volume_bar_width
-                audio_manager.set_volume(volume_bar_value)
+                if audio_manager.music_playing:
+                    audio_manager.play()
 
-
+            elif show_options_menu and 200 <= event.pos[0] <= 300 and 350 <= event.pos[1] <= 380:
+                # L'utilisateur a cliqué sur le bouton "Volume"
+                # Affichez la fonctionnalité du volume ici
+                print("Fonctionnalité du volume")
 
     screen.blit(background, (0, 0))
 
@@ -118,7 +107,6 @@ while running:
         screen.blit(text_options, (350, 300))
         screen.blit(text_quit_game, (350, 350))
     else:
-        # Afficher le menu des options
         screen.blit(text_volume, (200, 200))
         pygame.draw.rect(screen, (255, 255, 255), (volume_bar_x, volume_bar_y, volume_bar_width, volume_bar_height))
         pygame.draw.rect(screen, volume_bar_color, (volume_bar_x, volume_bar_y, volume_bar_width * volume_bar_value, volume_bar_height))
