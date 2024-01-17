@@ -6,7 +6,7 @@ class Combat:
         self.pokemonAdversaire = pokemonAdversaire
 
     def getPuissanceAttaqueAdversaire(self, typeAdversaire):
-        # Logique pour obtenir la puissance d'attaque de l'adversaire en fonction du type
+        tab = 
         # Vous devez implémenter cette logique en fonction de vos règles de jeu
         pass
 
