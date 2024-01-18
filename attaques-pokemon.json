@@ -1,0 +1,179 @@
+[
+    {
+      "nom": "Bulbizarre",
+      "attaques": [
+        {
+          "nom": "Charge",
+          "type": "Normal",
+          "puissance": 40,
+          "precision": 100
+        },
+        {
+          "nom": "Fouet Lianes",
+          "type": "Plante",
+          "puissance": 50,
+          "precision": 90
+        }
+      ]
+    },
+    {
+      "nom": "Herbizarre",
+      "attaques": [
+        {
+        "nom": "Tranch'Herbe",
+        "type": "Plante",
+        "puissance": 55,
+        "precision": 95
+      },
+      {
+        "nom": "Vampigraine",
+        "type": "Plante",
+        "puissance": 40,
+        "precision": 100
+      }
+    ]
+    },
+    {
+      "nom": "Florizarre",
+      "attaques": [
+        {
+        "nom": "Lance-Soleil",
+        "type": "Plante",
+        "puissance": 70,
+        "precision": 90
+      },
+      {
+        "nom": "Bomb-Beurk",
+        "type": "Poison",
+        "puissance": 60,
+        "precision": 85}
+    ]
+    },
+    {
+      "nom": "Salameche",
+      "attaques": [
+        {
+        "nom": "Griffes",
+        "type": "Normal",
+        "puissance": 40,
+        "precision": 95
+      },
+      {
+        "nom": "Flamèche",
+        "type": "Feu",
+        "puissance": 40,
+        "precision": 100
+      }
+    ]
+    },
+    {
+      "nom": "Reptincel",
+      "attaques": [ {
+        "nom": "Tranche",
+        "type": "Normal",
+        "puissance": 70,
+        "precision": 100
+      },
+      {
+        "nom": "Roue de Feu ",
+        "type": "Feu",
+        "puissance": 55,
+        "precision": 100
+      }]
+    },
+    {
+      "nom": "Dracaufeu",
+      "attaques": [{
+        "nom": "Déflagration",
+        "type": "Feu",
+        "puissance": 110,
+        "precision": 85
+      },
+      {
+        "nom": "Draco-Griffe",
+        "type": "Dragon",
+        "puissance": 80,
+        "precision": 100
+      }]
+    },
+    {
+      "nom": "Carapuce",
+      "attaques": [
+        {
+            "nom": "Ecras'Face",
+            "type": "Normal",
+            "puissance": 40,
+            "precision": 100
+          },
+          {
+            "nom": "Écume",
+            "type": "Eau",
+            "puissance": 45,
+            "precision": 95
+
+      }]
+      
+    },
+    {
+      "nom": "Carabaffe",
+      "attaques": [{
+        "nom": "Hydrocanon",
+        "type": "Eau",
+        "puissance": 90,
+        "precision": 80
+      },
+      {
+        "nom": "Coup d'Boule",
+        "type": "Normal",
+        "puissance": 70,
+        "precision": 90
+      }]
+    },
+    {
+      "nom": "Tortank",
+      "attaques": [
+        {
+          "nom": "Surf",
+          "type": "Eau",
+          "puissance": 90,
+          "precision": 100
+        },
+        {
+          "nom": "Damoclès",
+          "type": "Normal",
+          "puissance": 100,
+          "precision": 100
+        }]
+    },
+    {
+      "nom": "Pikachu",
+      "attaques": [{
+        "nom": "Tonnerre",
+        "type": "Électrik",
+        "puissance": 90,
+        "precision": 100
+      },
+      {
+        "nom": "Queue de Fer",
+        "type": "Acier",
+        "puissance": 55,
+        "precision": 90}
+    ]
+    },
+    {
+      "nom": "Raichu",
+      "attaques": [ {
+        "nom": "Fatal-Foudre",
+        "type": "Électrik",
+        "puissance": 110,
+        "precision": 70
+      },
+      {
+        "nom": "Vive-attaque",
+        "type": "Normal",
+        "puissance": 40,
+        "precision": 100}]
+    }
+  ]
+  
+  
