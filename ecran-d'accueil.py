@@ -1,8 +1,11 @@
 import pygame
 import sys
+import subprocess
+from personnage import Player
+
 
 pygame.init()
-pygame.font.init()  
+pygame.font.init()
 
 class AudioManager:
     def __init__(self):
@@ -41,9 +44,18 @@ class AudioManager:
 audio_manager = AudioManager()
 audio_manager.play()
 
-screen = pygame.display.set_mode((800, 600), pygame.FULLSCREEN)
-background = pygame.image.load("project_pokemon/pokémon-ecran-d'accueil.jpg")
-background = pygame.transform.scale(background, (800, 600))
+class Screen:
+    def __init__(self):
+        pygame.init()
+        self.screen = pygame.display.set_mode((800, 600), pygame.FULLSCREEN)
+        self.background = pygame.image.load("project_pokemon/pokémon-ecran-d'accueil.jpg")
+        self.background = pygame.transform.scale(self.background, (800, 600))
+
+    def get_display(self):
+        return self.screen
+
+# Initialisez la classe Screen
+instance_ecran = Screen()
 
 font = pygame.font.Font(None, 36)
 text_new_game = font.render("Nouvelle partie", True, (255, 255, 255))
@@ -67,6 +79,16 @@ volume_bar_y = 200
 volume_bar_color = (0, 255, 0)
 volume_bar_value = audio_manager.get_volume()
 
+def launch_game():
+    try:
+        with open("project_pokemon/jeu.py", "r") as jeu_file:
+            jeu_code = jeu_file.read()
+            exec(jeu_code)
+    except FileNotFoundError:
+        print("Le fichier jeu.py n'a pas été trouvé.")
+    except Exception as e:
+        print(f"Erreur lors de l'exécution de jeu.py : {e}")
+
 running = True
 while running:
     for event in pygame.event.get():
@@ -75,42 +97,39 @@ while running:
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_f:
             fullscreen = not fullscreen
             if fullscreen:
-                screen = pygame.display.set_mode((800, 600), pygame.FULLSCREEN)
+                instance_ecran.get_display().set_mode((800, 600), pygame.FULLSCREEN)
             else:
-                screen = pygame.display.set_mode((800, 600))
+                instance_ecran.get_display().set_mode((800, 600))
             pygame.display.flip()
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             if 350 <= event.pos[0] <= 500 and 350 <= event.pos[1] <= 380:
                 running = False
             elif 350 <= event.pos[0] <= 500 and 250 <= event.pos[1] <= 280:
-                print("Continuer le jeu")
+                # Lorsque "Continuer le jeu" est cliqué, lancez le script de jeu.py
+                launch_game()
+                running = False  # Arrêtez le script d'écran d'accueil après le lancement du jeu.py
             elif 350 <= event.pos[0] <= 500 and 300 <= event.pos[1] <= 330:
                 show_options_menu = True
                 if not options_menu_entered:
                     audio_manager.reset()
                     options_menu_entered = True
-            elif show_options_menu and back_button_rect.collidepoint(event.pos):
-                show_options_menu = False
-                if audio_manager.music_playing:
-                    audio_manager.play()
+            elif 350 <= event.pos[0] <= 500 and 200 <= event.pos[1] <= 230:
+                # Lorsque "Nouvelle partie" est cliqué, lancez le script de jeu.py
+                launch_game()
+                running = False  # Arrêtez le script d'écran d'accueil après le lancement du jeu.py
 
-            elif show_options_menu and 200 <= event.pos[0] <= 300 and 350 <= event.pos[1] <= 380:
-                # L'utilisateur a cliqué sur le bouton "Volume"
-                # Affichez la fonctionnalité du volume ici
-                print("Fonctionnalité du volume")
-
-    screen.blit(background, (0, 0))
+    instance_ecran.get_display().blit(instance_ecran.background, (0, 0))
 
     if not show_options_menu:
-        screen.blit(text_new_game, (350, 200))
-        screen.blit(text_continue_game, (350, 250))
-        screen.blit(text_options, (350, 300))
-        screen.blit(text_quit_game, (350, 350))
+        instance_ecran.get_display().blit(text_new_game, (350, 200))
+        instance_ecran.get_display().blit(text_continue_game, (350, 250))
+        instance_ecran.get_display().blit(text_options, (350, 300))
+        instance_ecran.get_display().blit(text_quit_game, (350, 350))
     else:
-        screen.blit(text_volume, (200, 200))
-        pygame.draw.rect(screen, (255, 255, 255), (volume_bar_x, volume_bar_y, volume_bar_width, volume_bar_height))
-        pygame.draw.rect(screen, volume_bar_color, (volume_bar_x, volume_bar_y, volume_bar_width * volume_bar_value, volume_bar_height))
-        screen.blit(text_back, (200, 350))
+        instance_ecran.get_display().blit(text_volume, (200, 200))
+        pygame.draw.rect(instance_ecran.get_display(), (255, 255, 255), (volume_bar_x, volume_bar_y, volume_bar_width, volume_bar_height))
+        pygame.draw.rect(instance_ecran.get_display(), volume_bar_color, (volume_bar_x, volume_bar_y, volume_bar_width * volume_bar_value, volume_bar_height))
+        instance_ecran.get_display().blit(text_back, (200, 350))
 
     pygame.display.flip()
 
