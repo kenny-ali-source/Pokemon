@@ -1,83 +1,137 @@
 import pygame
-import pytmx
+import sys
+import subprocess
+from personnage import Player
+
+
+pygame.init()
+pygame.font.init()
+
+class AudioManager:
+    def __init__(self):
+        pygame.mixer.init()
+        self.sound_initialized = False
+        self.load_music()
+        self.music_playing = False
+        self.music_position = 0
+
+    def load_music(self):
+        pygame.mixer.music.load("project_pokemon/1hour_pokemon.mp3")
+        pygame.mixer.music.set_volume(0.5)
+        self.sound_initialized = True
+
+    def play(self):
+        if not self.music_playing:
+            pygame.mixer.music.play(-1, self.music_position)
+            self.music_playing = True
+
+    def stop(self):
+        if self.music_playing:
+            self.music_position = pygame.mixer.music.get_pos()
+            pygame.mixer.music.stop()
+            self.music_playing = False
+
+    def set_volume(self, volume):
+        pygame.mixer.music.set_volume(volume)
+
+    def get_volume(self):
+        return pygame.mixer.music.get_volume()
+
+    def reset(self):
+        if not self.sound_initialized:
+            self.load_music()
+
+audio_manager = AudioManager()
+audio_manager.play()
 
 class Screen:
     def __init__(self):
         pygame.init()
-        self.screen = None
-
-    def set_mode(self, map_path):
-        # Créez une fenêtre en mode plein écran avec la meilleure résolution disponible
-        screen_info = pygame.display.Info()
-        self.screen = pygame.display.set_mode((screen_info.current_w, screen_info.current_h), pygame.FULLSCREEN)
-
-        pygame.display.set_caption("Mon jeu avec une carte Tiled")
-
-        tmx_data = pytmx.TiledMap(map_path)
-        tile_width = tmx_data.tilewidth
-        tile_height = tmx_data.tileheight
-        map_width = tmx_data.width * tile_width
-        map_height = tmx_data.height * tile_height
-
-        # Ajustez le rendu de votre carte en fonction de la résolution actuelle de l'écran
-        screen_width, screen_height = pygame.display.get_surface().get_size()
-
-        # Créez une surface pour la carte
-        map_surface = pygame.Surface((map_width, map_height), pygame.SRCALPHA)
-
-        # Dessinez chaque layer de la carte sur la surface
-        for layer in tmx_data.visible_layers:
-            if isinstance(layer, pytmx.TiledTileLayer):
-                for x, y, gid in layer:
-                    tile_images = tmx_data.get_tile_image_by_gid(gid)
-                    if tile_images:
-                        image = pygame.image.load(tile_images[0])  # Chargez l'image avec pygame
-                        map_surface.blit(image, (x * tile_width, y * tile_height))
-
-        # Redimensionnez la carte pour remplir la fenêtre
-        scaled_map_surface = pygame.transform.scale(map_surface, (screen_width, screen_height))
-
-        # Affichez la nouvelle surface sur la fenêtre
-        self.screen.blit(scaled_map_surface, (0, 0))
-        pygame.display.flip()
-
-        return self.screen, scaled_map_surface.get_size()  # Retourne la taille de la carte ajustée
+        self.screen = pygame.display.set_mode((800, 600), pygame.FULLSCREEN)
+        self.background = pygame.image.load("project_pokemon/pokémon-ecran-d'accueil.jpg")
+        self.background = pygame.transform.scale(self.background, (800, 600))
 
     def get_display(self):
         return self.screen
 
-    def get_size(self):
-        return self.screen.get_size()
+# Initialisez la classe Screen
+instance_ecran = Screen()
 
-class Map:
-    def __init__(self, screen: Screen):
-        self.screen = screen
-        self.tmx_data = None
+font = pygame.font.Font(None, 36)
+text_new_game = font.render("Nouvelle partie", True, (255, 255, 255))
+text_continue_game = font.render("Continuer partie", True, (255, 255, 255))
+text_options = font.render("Options", True, (255, 255, 255))
+text_quit_game = font.render("Quitter le jeu", True, (255, 255, 255))
 
-    def switch_map(self, map_path):
-        self.tmx_data = pytmx.load_pygame(map_path)
+fullscreen = True
+show_options_menu = False
+options_menu_entered = False
 
-    def update(self):
-        pass  # Ajoutez ici les mises à jour de la carte si nécessaire
+options_menu_font = pygame.font.Font(None, 30)
+text_volume = options_menu_font.render("Volume", True, (255, 255, 255))
+text_back = options_menu_font.render("Retour", True, (255, 255, 255))
+back_button_rect = text_back.get_rect(topleft=(200, 350))
 
-# Initialisation de l'écran
-screen_instance = Screen()
-screen_instance.set_mode("project_pokemon/map/mapherbe.tmx")
+volume_bar_width = 200
+volume_bar_height = 20
+volume_bar_x = 300
+volume_bar_y = 200
+volume_bar_color = (0, 255, 0)
+volume_bar_value = audio_manager.get_volume()
 
-# Initialisation de la carte
-game_map = Map(screen_instance)
+def launch_game():
+    try:
+        with open("project_pokemon/jeu.py", "r") as jeu_file:
+            jeu_code = jeu_file.read()
+            exec(jeu_code)
+    except FileNotFoundError:
+        print("Le fichier jeu.py n'a pas été trouvé.")
+    except Exception as e:
+        print(f"Erreur lors de l'exécution de jeu.py : {e}")
 
-# Boucle principale
 running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_f:
+            fullscreen = not fullscreen
+            if fullscreen:
+                instance_ecran.get_display().set_mode((800, 600), pygame.FULLSCREEN)
+            else:
+                instance_ecran.get_display().set_mode((800, 600))
+            pygame.display.flip()
+        elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            if 350 <= event.pos[0] <= 500 and 350 <= event.pos[1] <= 380:
+                running = False
+            elif 350 <= event.pos[0] <= 500 and 250 <= event.pos[1] <= 280:
+                # Lorsque "Continuer le jeu" est cliqué, lancez le script de jeu.py
+                launch_game()
+                running = False  # Arrêtez le script d'écran d'accueil après le lancement du jeu.py
+            elif 350 <= event.pos[0] <= 500 and 300 <= event.pos[1] <= 330:
+                show_options_menu = True
+                if not options_menu_entered:
+                    audio_manager.reset()
+                    options_menu_entered = True
+            elif 350 <= event.pos[0] <= 500 and 200 <= event.pos[1] <= 230:
+                # Lorsque "Nouvelle partie" est cliqué, lancez le script de jeu.py
+                launch_game()
+                running = False  # Arrêtez le script d'écran d'accueil après le lancement du jeu.py
 
-    # Mise à jour de la carte
-    game_map.update()
+    instance_ecran.get_display().blit(instance_ecran.background, (0, 0))
 
-    # Mettez à jour l'affichage
+    if not show_options_menu:
+        instance_ecran.get_display().blit(text_new_game, (350, 200))
+        instance_ecran.get_display().blit(text_continue_game, (350, 250))
+        instance_ecran.get_display().blit(text_options, (350, 300))
+        instance_ecran.get_display().blit(text_quit_game, (350, 350))
+    else:
+        instance_ecran.get_display().blit(text_volume, (200, 200))
+        pygame.draw.rect(instance_ecran.get_display(), (255, 255, 255), (volume_bar_x, volume_bar_y, volume_bar_width, volume_bar_height))
+        pygame.draw.rect(instance_ecran.get_display(), volume_bar_color, (volume_bar_x, volume_bar_y, volume_bar_width * volume_bar_value, volume_bar_height))
+        instance_ecran.get_display().blit(text_back, (200, 350))
+
     pygame.display.flip()
 
 pygame.quit()
+sys.exit()
