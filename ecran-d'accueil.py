@@ -3,7 +3,6 @@ import sys
 import subprocess
 from personnage import Player
 
-
 pygame.init()
 pygame.font.init()
 
@@ -102,21 +101,29 @@ while running:
                 instance_ecran.get_display().set_mode((800, 600))
             pygame.display.flip()
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            if 350 <= event.pos[0] <= 500 and 350 <= event.pos[1] <= 380:
-                running = False
-            elif 350 <= event.pos[0] <= 500 and 250 <= event.pos[1] <= 280:
-                # Lorsque "Continuer le jeu" est cliqué, lancez le script de jeu.py
-                launch_game()
-                running = False  # Arrêtez le script d'écran d'accueil après le lancement du jeu.py
-            elif 350 <= event.pos[0] <= 500 and 300 <= event.pos[1] <= 330:
-                show_options_menu = True
-                if not options_menu_entered:
-                    audio_manager.reset()
-                    options_menu_entered = True
-            elif 350 <= event.pos[0] <= 500 and 200 <= event.pos[1] <= 230:
-                # Lorsque "Nouvelle partie" est cliqué, lancez le script de jeu.py
-                launch_game()
-                running = False  # Arrêtez le script d'écran d'accueil après le lancement du jeu.py
+            if not show_options_menu:  # Si le menu des options n'est pas affiché
+                if 350 <= event.pos[0] <= 500 and 350 <= event.pos[1] <= 380:
+                    running = False
+                elif 350 <= event.pos[0] <= 500 and 250 <= event.pos[1] <= 280:
+                    # Lorsque "Continuer le jeu" est cliqué, lancez le script de jeu.py
+                    launch_game()
+                    running = False
+                elif 350 <= event.pos[0] <= 500 and 300 <= event.pos[1] <= 330:
+                    show_options_menu = True
+                    if not options_menu_entered:
+                        audio_manager.reset()
+                        options_menu_entered = True
+                elif 350 <= event.pos[0] <= 500 and 200 <= event.pos[1] <= 230:
+                    # Lorsque "Nouvelle partie" est cliqué, lancez le script de jeu.py
+                    launch_game()
+                    running = False
+            else:  # Si le menu des options est affiché
+                if 200 <= event.pos[0] <= 500 and 350 <= event.pos[1] <= 380:
+                    show_options_menu = False
+                elif volume_bar_x <= event.pos[0] <= volume_bar_x + volume_bar_width and volume_bar_y <= event.pos[1] <= volume_bar_y + volume_bar_height:
+                    # Gérer l'événement de clic de la barre de volume
+                    volume_bar_value = (event.pos[0] - volume_bar_x) / volume_bar_width
+                    audio_manager.set_volume(volume_bar_value)
 
     instance_ecran.get_display().blit(instance_ecran.background, (0, 0))
 
