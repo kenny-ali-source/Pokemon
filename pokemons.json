@@ -1,0 +1,153 @@
+[
+  {
+    "nom": "Bulbizarre",
+    "hp": 45,
+    "attaque": 10,
+    "defense": 15,
+    "vitesse": 45,
+    "niveau": 5,
+    "types": ["Plante", "Poison"],
+    "image": "sprite_poke/BULBASAUR.png",
+    "evolution": {
+      "nom_evolution": "Herbizarre",
+      "hp": 60,
+      "attaque": 16,
+      "defense": 20,
+      "vitesse": 25,
+      "types": ["Plante", "Poison"],
+      "image": "sprite_poke/IVYSAUR.png"
+      
+    }
+  },
+  {
+      "nom": "Herbizarre",
+      "hp": 60,
+      "attaque": 20,
+      "defense": 25,
+      "vitesse": 60,
+      "niveau": 16,
+      "types": ["Plante", "Poison"],
+      "image": "sprite_poke/IVYSAUR.png",
+      "evolution": {
+          "nom_evolution": "Florizarre",
+          "hp": 80,
+          "attaque": 32,
+          "defense": 30,
+          "vitesse": 40,
+          "niveau": 80,
+          "types": ["Plante", "Poison"],
+          "image": "sprite_poke/VENUSAUR.png"
+      }
+  
+  },
+  {
+    "nom": "Salameche",
+    "hp": 39,
+    "attaque": 5,
+    "defense": 52,
+    "vitesse": 43,
+    "niveau": 5,
+    "types": ["Feu"],
+    "image": "sprite_poke/CHARMENDER.png",
+    "evolution": {
+      "nom_evolution": "Reptincel",
+      "hp": 58,
+      "attaque": 16,
+      "defense": 64,
+      "vitesse": 58,
+      "niveau": 16,
+      "types": ["Feu"],
+      "image": "sprite_poke/CHARMELEON.png"
+    }
+  },
+  {
+    "nom": "Reptincel",
+    "hp": 58,
+    "attaque": 16,
+    "defense": 64,
+    "vitesse": 58,
+    "niveau": 16,
+    "types": ["Feu"],
+    "image": "sprite_poke/CHARMELEON.png",
+    "evolution": {
+      "nom_evolution": "Dracaufeu",
+      "hp": 78,
+      "attaque": 36,
+      "defense": 84,
+      "vitesse": 78,
+      "niveau": 36,
+      "types": ["Feu", "Vol"],
+      "image": "sprite_poke/CHARIZARD.png"
+    }
+  },
+  {
+    "nom": "Carapuce",
+    "hp": 44,
+    "attaque": 5,
+    "defense": 48,
+    "vitesse": 65,
+    "niveau": 5,
+    "types": ["Eau"],
+    "image": "sprite_poke/SQUIRTLE.png",
+    "evolution": {
+      "nom_evolution": "Carabaffe",
+      "hp": 59,
+      "attaque": 16,
+      "defense": 63,
+      "vitesse": 80,
+      "niveau": 16,
+      "types": ["Eau"],
+      "image": "sprite_poke/WARTORTLE.png"
+    }
+  },
+  {
+    "nom": "Carabaffe",
+    "hp": 59,
+    "attaque": 16,
+    "defense": 63,
+    "vitesse": 80,
+    "niveau": 16,
+    "types": ["Eau"],
+    "image": "sprite_poke/WARTORTLE.png",
+    "evolution": {
+      "nom_evolution": "Tortank",
+      "hp": 79,
+      "attaque": 36,
+      "defense": 83,
+      "vitesse": 100,
+      "niveau": 36,
+      "types": ["Eau"],
+      "image": "sprite_poke/BLASTOISE.png"
+    }
+  },
+  {
+    "nom": "Pikachu",
+    "hp": 35,
+    "attaque": 20,
+    "defense": 55,
+    "vitesse": 40,
+    "niveau": 20,
+    "types": ["Électrik"],
+    "image": "sprite_poke/PIKACHU.png",
+    "evolution": {
+      "nom_evolution": "Raichu",
+      "hp": 60,
+      "attaque": 36,
+      "defense": 90,
+      "vitesse": 55,
+      "niveau": 36,
+      "types": ["Électrik"],
+      "image": "sprite_poke/RAICHU.png"
+    }
+  },
+  {
+    "nom": "Raichu",
+    "hp": 60,
+    "attaque": 36,
+    "defense": 90,
+    "vitesse": 55,
+    "niveau": 36,
+    "types": ["Électrik"],
+    "image": "sprite_poke/RAICHU.png"
+  }
+]
