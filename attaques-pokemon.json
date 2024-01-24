@@ -1,6 +1,7 @@
 [
     {
       "nom": "Bulbizarre",
+      "type": "Plante",
       "attaques": [
         {
           "nom": "Charge",
@@ -18,6 +19,7 @@
     },
     {
       "nom": "Herbizarre",
+      "type": "Plante",
       "attaques": [
         {
         "nom": "Tranch'Herbe",
@@ -35,6 +37,7 @@
     },
     {
       "nom": "Florizarre",
+      "type": "Plante Poison",
       "attaques": [
         {
         "nom": "Lance-Soleil",
@@ -51,6 +54,7 @@
     },
     {
       "nom": "Salameche",
+      "type": "Feu",
       "attaques": [
         {
         "nom": "Griffes",
@@ -68,6 +72,7 @@
     },
     {
       "nom": "Reptincel",
+      "type": "Feu",
       "attaques": [ {
         "nom": "Tranche",
         "type": "Normal",
@@ -83,6 +88,7 @@
     },
     {
       "nom": "Dracaufeu",
+      "type": "Feu Vol",
       "attaques": [{
         "nom": "Déflagration",
         "type": "Feu",
@@ -98,6 +104,7 @@
     },
     {
       "nom": "Carapuce",
+      "type": "Eau",
       "attaques": [
         {
             "nom": "Ecras'Face",
@@ -116,6 +123,7 @@
     },
     {
       "nom": "Carabaffe",
+      "type": "Eau",
       "attaques": [{
         "nom": "Hydrocanon",
         "type": "Eau",
@@ -131,6 +139,7 @@
     },
     {
       "nom": "Tortank",
+      "type": "Eau",
       "attaques": [
         {
           "nom": "Surf",
@@ -144,9 +153,10 @@
           "puissance": 100,
           "precision": 100
         }]
-    },
+    }, 
     {
       "nom": "Pikachu",
+      "type": "Électrik",
       "attaques": [{
         "nom": "Tonnerre",
         "type": "Électrik",
@@ -162,6 +172,7 @@
     },
     {
       "nom": "Raichu",
+      "type":"Électrik",
       "attaques": [ {
         "nom": "Fatal-Foudre",
         "type": "Électrik",
