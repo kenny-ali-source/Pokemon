@@ -1,9 +1,9 @@
-# pokedex.py
 import os
 import json
 import tkinter as tk
 from tkinter import messagebox
 
+# Classe représentant l'interface graphique du Pokedex
 class PokedexGUI:
     def __init__(self, master):
         self.master = master
@@ -48,6 +48,7 @@ class PokedexGUI:
     def quitter_pokedex(self):
         self.master.destroy()
 
+# Classe représentant le Pokedex
 class Pokedex:
     def __init__(self, save_file="fichier/pokedex.json"):
         self.pokemon_list = []
