@@ -1,3 +1,4 @@
+#pokedex.py
 import os
 import json
 import tkinter as tk
